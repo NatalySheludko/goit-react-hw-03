@@ -1,21 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ContactForm from "../ContactForm/ContactForm";
 import ContactList from "../ContactList/ContactList";
 import SearchBox from "../SearchBox/SearchBox";
-import defaultContacts from "../../defaultContacts.json";
+//import defaultContacts from "../../defaultContacts.json";
 
 export default function App() {
-  const [contacts, setContacts] = useState(defaultContacts); //початкове значення стану
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = localStorage.getItem("saved-contacts");
+    if (savedContacts !== null) {
+      return JSON.parse(savedContacts);
+    }
+    return [];
+  });
+
   const [filter, setFilter] = useState("");
 
   const addContact = (newUser) => {
-    //newUser = values, nanoid
-    console.log(newUser);
+    //console.log(newUser);
     setContacts((currContacts) => {
-      //currContacts значення стану на момент оновлення
-      return [...currContacts, newUser]; //return новий стан, створюємо новий масив
+      return [...currContacts, newUser];
     });
   };
+
+  useEffect(() => {
+    localStorage.setItem("saved-contacts", JSON.stringify(contacts));
+  }, [contacts]);
 
   const deleteUser = (contactId) => {
     setContacts((currContacts) => {
@@ -23,11 +32,11 @@ export default function App() {
     });
   };
 
-  const filterContacts = contacts.filter(
-    (userContact) =>
-      userContact.name &&
-      userContact.name.toLowerCase().includes(filter.toLowerCase())
+  const filterContacts = contacts.filter((userContact) =>
+    userContact.name.toLowerCase().includes(filter.toLowerCase())
   );
+
+ 
 
   return (
     <div>
