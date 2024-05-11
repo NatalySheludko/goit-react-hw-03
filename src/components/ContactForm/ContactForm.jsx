@@ -3,7 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useId } from "react";
 import { nanoid } from "nanoid";
-//import defaultContacts from "../../defaultContacts.json";
 
 const UserSchema = Yup.object().shape({
   name: Yup.string()
@@ -18,12 +17,11 @@ const UserSchema = Yup.object().shape({
 });
 
 export default function ContactForm({ onAdd }) {
-  const nameId = useId();
-  const numberId = useId();
+  const fieldId = useId();
 
-  const handleSubmit = ( values, actions) => {
-		console.log(values);
-		
+  const handleSubmit = (values, actions) => {
+    console.log(values);
+
     onAdd({ id: nanoid(), ...values });
     actions.resetForm();
   };
@@ -34,20 +32,32 @@ export default function ContactForm({ onAdd }) {
       validationSchema={UserSchema}
       onSubmit={handleSubmit}
     >
-      <Form>
-        <div>
-          <label htmlFor={nameId}>Name</label>
-          <Field type="text" name="name" id={nanoid()} />
+      <Form className={css.form}>
+        <div className={css.formFields}>
+          <label htmlFor={`${fieldId}-name`}>Name</label>
+          <Field
+            className={css.input}
+            type="text"
+            name="name"
+            id={`${fieldId}-name`}
+          />
           <ErrorMessage className={css.error} name="name" component="span" />
         </div>
 
-        <div>
-          <label htmlFor={numberId}>Number</label>
-          <Field type="tel" name="number" id={nanoid()} />
+        <div className={css.formFields}>
+          <label htmlFor={`${fieldId}-number`}>Number</label>
+          <Field
+            className={css.input}
+            type="tel"
+            name="number"
+            id={`${fieldId}-number`}
+          />
           <ErrorMessage className={css.error} name="number" component="span" />
         </div>
 
-        <button type="submit">Add contact</button>
+        <button className={css.btn} type="submit">
+          Add contact
+        </button>
       </Form>
     </Formik>
   );

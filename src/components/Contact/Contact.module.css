@@ -1,0 +1,23 @@
+.contacts {
+	width: 350px;
+	border: 1px solid black;
+	border-radius: 4px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-left: 50px;
+	padding: 10px 3px;
+}
+
+.name {
+	margin-left: 8px;
+}
+
+.btn {
+	padding: 6px 10px;
+}
+
+.icon {
+	display: flex;
+	margin-bottom: 4px;
+}

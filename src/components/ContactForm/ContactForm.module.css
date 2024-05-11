@@ -1,0 +1,29 @@
+.form {
+  width: 400px;
+  border: 1px solid black;
+  border-radius: 4px;
+	margin-left: 50px;
+	margin-bottom: 30px;
+}
+
+.formFields {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input {
+  width: 350px;
+ 
+}
+
+.btn {
+	display: flex;
+	margin: 20px auto;
+	padding: 8px 15px;
+}
+
+.error {
+	color: orangered;
+}
